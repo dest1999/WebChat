@@ -1,4 +1,4 @@
-﻿@model (IEnumerable<WebChat.User> CollectionOfUsers, User user)
+﻿@model (IEnumerable<User> CollectionOfUsers, User user)
 
 @{
     ViewData["Title"] = "Index";
@@ -44,3 +44,7 @@
 }
     </tbody>
 </table>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

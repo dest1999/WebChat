@@ -28,24 +28,32 @@ namespace WebChat.Controllers
         }
 
         // GET: UsersController/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // POST: UsersController/Create
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(IFormCollection collection)
         {
-            var tmp = collection;
             try
             {
+                var user = new User
+                {
+                    UserName = collection["Item2.UserName"],
+                    Login = collection["Item2.Login"],
+                    Password = collection["Item2.Login"]
+                };
+
+                _userRepository.Create(user);
+                
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return BadRequest();
             }
         }
 

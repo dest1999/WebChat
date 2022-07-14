@@ -7,6 +7,7 @@ namespace WebChat;
 public class UserDBRepository : IUserRepository<User>
 {
     private string connectionString;
+    private string usersCollection = "UsersCollection";
 
     public UserDBRepository(string ConnectionString)
     {
@@ -15,7 +16,10 @@ public class UserDBRepository : IUserRepository<User>
     public void Create(User item)
     {
         using var db = new LiteDatabase(connectionString);
+        var dbCollection = db.GetCollection<User>(usersCollection);
 
+        dbCollection.Insert(item);
+        db.Commit();
         //throw new NotImplementedException();
     }
 
@@ -34,34 +38,34 @@ public class UserDBRepository : IUserRepository<User>
     {
         using var db = new LiteDatabase(connectionString);
 
-        var dbCollection = db.GetCollection<User>("UsersCollection");
+        var dbCollection = db.GetCollection<User>(usersCollection);
 
-        #region добавление пользователей для тестирования
+        //#region добавление пользователей для тестирования
 
-        if (dbCollection.Count() == 0)
-        {
-            dbCollection.Insert(new User
-            {
-                UserName = "UserName",
-                Login = "login",
-                Password = "pass"
-            });
-        }
+        //if (dbCollection.Count() == 0)
+        //{
+        //    dbCollection.Insert(new User
+        //    {
+        //        UserName = "UserName",
+        //        Login = "login",
+        //        Password = "pass"
+        //    });
+        //}
 
-        dbCollection.Insert(new User
-        {
-            UserName = "UserName" + dbCollection.FindById(dbCollection.Count()).Id + 1,
-            Login = "login",
-            Password = "pass"
-        });
+        //dbCollection.Insert(new User
+        //{
+        //    UserName = "UserName" + (dbCollection.FindById(dbCollection.Count()).Id + 1),
+        //    Login = "login",
+        //    Password = "pass"
+        //});
 
-        dbCollection.Insert(new User
-        {
-            UserName = "UserName" + dbCollection.FindById(dbCollection.Count()).Id + 1,
-            Login = "login",
-            Password = "pass"
-        });
-        #endregion
+        //dbCollection.Insert(new User
+        //{
+        //    UserName = "UserName" + (dbCollection.FindById(dbCollection.Count()).Id + 1),
+        //    Login = "login",
+        //    Password = "pass"
+        //});
+        //#endregion
         
         var outData = dbCollection.FindAll().ToList();
         return outData;
