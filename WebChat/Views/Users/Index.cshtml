@@ -1,0 +1,46 @@
+﻿@model (IEnumerable<WebChat.User> CollectionOfUsers, User user)
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Пользователи</h1>
+<partial name="Create"/>
+
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @*@Html.DisplayNameFor(model => model.UserName)*@
+                name
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Login)*@
+                login
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Password)*@
+                password
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.CollectionOfUsers ) {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Login)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
