@@ -18,8 +18,15 @@ namespace WebChat.Controllers
         public IActionResult Index()
         {
             var users = _userRepository.GetAll();
-            return View((users, new User()));
+            return View(users);
+            //return View((users, new User()));
         }
+
+        public PartialViewResult SendUserToForm()
+        {
+            return PartialView(new User());
+        }
+
 
         // GET: UsersController/Details/5
         public ActionResult Details(int id)
@@ -36,24 +43,27 @@ namespace WebChat.Controllers
         // POST: UsersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(IFormCollection collection)
+        public IActionResult Create(User inputObj)
         {
+            User tmp = inputObj;
+
+
             try
             {
-                var user = new User
-                {
-                    UserName = collection["Item2.UserName"],
-                    Login = collection["Item2.Login"],
-                    Password = collection["Item2.Login"]
-                };
+                //var user = new User
+                //{
+                //    //UserName = collection["Item2.UserName"],
+                //    Login = collection["Item2.Login"],
+                //    Password = collection["Item2.Login"]
+                //};
 
-                _userRepository.Create(user);
+                _userRepository.Create(tmp);
                 
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return BadRequest();
+                return BadRequest("Невозможно создать пользователя");
             }
         }
 

@@ -10,15 +10,17 @@ public class User
 
     [Required(ErrorMessage = "Поле не должно быть пустым")]
     [Display(Name ="Имя пользователя")]
-    [StringLength(10)]
+    [StringLength(maximumLength: 25, MinimumLength = 1)]
     public string UserName { get; set; }
 
     [Required(ErrorMessage = "Поле не должно быть пустым")]
     [Display(Name ="Логин")]
+    [StringLength(maximumLength: 25, MinimumLength = 1)]
     public string Login { get; set; }
 
     [Required(ErrorMessage = "Поле не должно быть пустым")]
-    [DataType(DataType.Password)]
     [Display(Name ="Пароль")]
+    [DataType(DataType.Password)]
+    [StringLength (maximumLength: 25, MinimumLength = 1)]
     public string Password { get; set; }
 }

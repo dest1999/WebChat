@@ -1,11 +1,12 @@
-﻿@model (IEnumerable<User> CollectionOfUsers, User user)
+﻿@model IEnumerable<User>
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Пользователи</h1>
-<partial name="Create"/>
+
+@await Component.InvokeAsync("UserCreateForm")
 
 
 <table class="table">
@@ -28,7 +29,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.CollectionOfUsers ) {
+@foreach (var item in Model ) {
         <tr>
 
             <td>
