@@ -45,8 +45,15 @@ namespace WebChat.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(User inputObj)
         {
-            User tmp = inputObj;
+            if (inputObj is User)
+            {
+                User user = inputObj;
+                _userRepository.Create(user);
+                return RedirectToAction(nameof(Index));
 
+            }
+
+            return BadRequest("Невозможно создать пользователя");
 
             try
             {
@@ -57,13 +64,10 @@ namespace WebChat.Controllers
                 //    Password = collection["Item2.Login"]
                 //};
 
-                _userRepository.Create(tmp);
                 
-                return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return BadRequest("Невозможно создать пользователя");
             }
         }
 
