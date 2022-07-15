@@ -8,22 +8,19 @@
 
 @await Component.InvokeAsync("UserCreateForm")
 
-
+<br />
 <table class="table">
     <thead>
         <tr>
 
             <th>
-                @*@Html.DisplayNameFor(model => model.UserName)*@
-                name
+               @Html.DisplayNameFor(model => model.UserName)
             </th>
             <th>
-                @*@Html.DisplayNameFor(model => model.Login)*@
-                login
+                @Html.DisplayNameFor(model => model.Login)
             </th>
             <th>
-                @*@Html.DisplayNameFor(model => model.Password)*@
-                password
+                @Html.DisplayNameFor(model => model.Password)
             </th>
             <th></th>
         </tr>

@@ -13,34 +13,12 @@ namespace WebChat.Controllers
             _userRepository = userRepository;
         }
 
-
-        // GET: UsersController
         public IActionResult Index()
         {
             var users = _userRepository.GetAll();
             return View(users);
-            //return View((users, new User()));
         }
 
-        public PartialViewResult SendUserToForm()
-        {
-            return PartialView(new User());
-        }
-
-
-        // GET: UsersController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: UsersController/Create
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        // POST: UsersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(User inputObj)
@@ -48,69 +26,14 @@ namespace WebChat.Controllers
             if (inputObj is User)
             {
                 User user = inputObj;
+                user.Id = 0; // БД сама ставит индекс
                 _userRepository.Create(user);
                 return RedirectToAction(nameof(Index));
 
             }
 
             return BadRequest("Невозможно создать пользователя");
-
-            try
-            {
-                //var user = new User
-                //{
-                //    //UserName = collection["Item2.UserName"],
-                //    Login = collection["Item2.Login"],
-                //    Password = collection["Item2.Login"]
-                //};
-
-                
-            }
-            catch
-            {
-            }
         }
 
-        // GET: UsersController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: UsersController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: UsersController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: UsersController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
