@@ -4,11 +4,11 @@ using WebChat.Models;
 
 namespace WebChat.Controllers
 {
-    public class HomeController : Controller
+    public class ChatController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<ChatController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public ChatController(ILogger<ChatController> logger)
         {
             _logger = logger;
         }
