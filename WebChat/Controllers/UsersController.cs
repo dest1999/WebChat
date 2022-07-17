@@ -23,7 +23,7 @@ namespace WebChat.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(User inputObj)
         {
-            if (inputObj is User)
+            if (ModelState.IsValid)
             {
                 User user = inputObj;
                 user.Id = 0; // БД сама ставит индекс

@@ -18,6 +18,24 @@ namespace WebChat.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateNewMessage(UserMessageDTO inputObj)
+        {
+
+            if (inputObj is UserMessageDTO)
+            {
+
+                return RedirectToAction(nameof(Index));
+
+            }
+
+            return BadRequest("wrong data");
+        }
+
+
+
+
         public IActionResult Privacy()
         {
             return View();

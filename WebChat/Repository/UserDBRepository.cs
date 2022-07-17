@@ -37,36 +37,7 @@ public class UserDBRepository : IUserRepository<User>
     public IEnumerable<User> GetAll()
     {
         using var db = new LiteDatabase(connectionString);
-
         var dbCollection = db.GetCollection<User>(usersCollection);
-
-        //#region добавление пользователей для тестирования
-
-        //if (dbCollection.Count() == 0)
-        //{
-        //    dbCollection.Insert(new User
-        //    {
-        //        UserName = "UserName",
-        //        Login = "login",
-        //        Password = "pass"
-        //    });
-        //}
-
-        //dbCollection.Insert(new User
-        //{
-        //    UserName = "UserName" + (dbCollection.FindById(dbCollection.Count()).Id + 1),
-        //    Login = "login",
-        //    Password = "pass"
-        //});
-
-        //dbCollection.Insert(new User
-        //{
-        //    UserName = "UserName" + (dbCollection.FindById(dbCollection.Count()).Id + 1),
-        //    Login = "login",
-        //    Password = "pass"
-        //});
-        //#endregion
-        
         var outData = dbCollection.FindAll().ToList();
         return outData;
     }
