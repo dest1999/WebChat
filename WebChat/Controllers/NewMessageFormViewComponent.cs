@@ -5,9 +5,9 @@ namespace WebChat.Controllers
 {
     public class NewMessageFormViewComponent : ViewComponent
     {
-        private readonly IUserRepository<User> userRepository;
+        private readonly IRepository<User> userRepository;
 
-        public NewMessageFormViewComponent(IUserRepository<User> UserRepository)
+        public NewMessageFormViewComponent(IRepository<User> UserRepository)
         {
             userRepository = UserRepository;
         }

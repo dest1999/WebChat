@@ -23,7 +23,7 @@ namespace WebChat.Controllers
         public IActionResult CreateNewMessage(UserMessageDTO inputObj)
         {
 
-            if (inputObj is UserMessageDTO)
+            if(ModelState.IsValid)
             {
 
                 return RedirectToAction(nameof(Index));

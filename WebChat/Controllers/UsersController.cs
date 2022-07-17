@@ -6,9 +6,9 @@ namespace WebChat.Controllers
 {
     public class UsersController : Controller
     {
-        private IUserRepository<User> _userRepository;
+        private IRepository<User> _userRepository;
 
-        public UsersController(IUserRepository<User> userRepository)
+        public UsersController(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }

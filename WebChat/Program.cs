@@ -7,8 +7,8 @@ builder.Services.AddControllersWithViews();
 
 string connectionString = builder.Configuration.GetConnectionString("LiteDB");
 
-builder.Services.AddScoped<IUserRepository<User>> (usersDB => new UserDBRepository(connectionString));
-
+builder.Services.AddScoped<IRepository<User>> (usersDB => new UserDBRepository(connectionString));
+builder.Services.AddScoped<IRepository<UserMessage>>(messagesDB => new MessagesDBRepository(connectionString));
 
 var app = builder.Build();
 

@@ -1,6 +1,6 @@
 ﻿namespace WebChat;
 
-public interface IUserRepository<T> where T : User
+public interface IRepository<T> 
 {
     void Create(T item);
     void Update(T item);

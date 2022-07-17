@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace WebChat;
 
-public class UserDBRepository : IUserRepository<User>
+public class UserDBRepository : IRepository<User>
 {
     private string connectionString;
-    private string usersCollection = "UsersCollection";
+    private string collectionName = "UsersCollection";
 
     public UserDBRepository(string ConnectionString)
     {
@@ -16,11 +16,10 @@ public class UserDBRepository : IUserRepository<User>
     public void Create(User item)
     {
         using var db = new LiteDatabase(connectionString);
-        var dbCollection = db.GetCollection<User>(usersCollection);
+        var dbCollection = db.GetCollection<User>(collectionName);
 
         dbCollection.Insert(item);
         db.Commit();
-        //throw new NotImplementedException();
     }
 
     public void Delete(int id)
@@ -37,7 +36,7 @@ public class UserDBRepository : IUserRepository<User>
     public IEnumerable<User> GetAll()
     {
         using var db = new LiteDatabase(connectionString);
-        var dbCollection = db.GetCollection<User>(usersCollection);
+        var dbCollection = db.GetCollection<User>(collectionName);
         var outData = dbCollection.FindAll().ToList();
         return outData;
     }

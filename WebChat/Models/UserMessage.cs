@@ -6,16 +6,23 @@ namespace WebChat;
 
 public class UserMessage
 {
-    [HiddenInput(DisplayValue = false)]
+    //[HiddenInput(DisplayValue = false)]
     public int Id { get; set; }
 
-    [Required(ErrorMessage = "Выберите пользователя")]
-    [DisplayName("Пользователь: ")]
-    public User User { get; set; }
+    //[Required(ErrorMessage = "Выберите пользователя")]
+    //[DisplayName("Пользователь: ")]
+    public int CreatedByUserId { get; private set; }
 
-    [Required(AllowEmptyStrings = false, ErrorMessage = "Введите сообщение")]
-    [DisplayName("Сообщение")]
-    public string Message { get; set; }
+    //[Required(AllowEmptyStrings = false, ErrorMessage = "Введите сообщение")]
+    //[DisplayName("Сообщение")]
+    public string Message { get; private set; }
 
-    public DateTime Created { get; set; }
+    public DateTime Created { get; private set; }
+
+    public UserMessage(UserMessageDTO userMessageDTO)
+    {
+        CreatedByUserId = userMessageDTO.SelectedUserId;
+        Message = userMessageDTO.Message;
+        Created = DateTime.Now;
+    }
 }

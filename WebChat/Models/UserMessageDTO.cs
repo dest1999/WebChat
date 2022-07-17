@@ -8,11 +8,11 @@ namespace WebChat;
 
 public class UserMessageDTO
 {
+    [ValidateNever]
     [Required(ErrorMessage = "Выберите пользователя")]
     [DisplayName("Пользователь:")]
     public SelectList? UsersListItems { get; set; }
 
-    [ValidateNever]
     public int SelectedUserId { get; set; }
 
     [Required(AllowEmptyStrings = false, ErrorMessage = "Введите сообщение")]
