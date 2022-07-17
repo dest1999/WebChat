@@ -6,16 +6,16 @@ namespace WebChat.Controllers
 {
     public class UsersController : Controller
     {
-        private IRepository<User> _userRepository;
+        private IRepository<User> userRepository;
 
-        public UsersController(IRepository<User> userRepository)
+        public UsersController(IRepository<User> UserRepository)
         {
-            _userRepository = userRepository;
+            userRepository = UserRepository;
         }
 
         public IActionResult Index()
         {
-            var users = _userRepository.GetAll();
+            var users = userRepository.GetAll();
             return View(users);
         }
 
@@ -27,7 +27,7 @@ namespace WebChat.Controllers
             {
                 User user = inputObj;
                 user.Id = 0; // БД сама ставит индекс
-                _userRepository.Create(user);
+                userRepository.Create(user);
                 return RedirectToAction(nameof(Index));
 
             }

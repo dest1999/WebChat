@@ -19,7 +19,12 @@ public class UserMessage
 
     public DateTime Created { get; private set; }
 
-    public UserMessage(UserMessageDTO userMessageDTO)
+    public static UserMessage Create(UserMessageDTO userMessageDTO)
+    {
+        return new UserMessage(userMessageDTO);
+    }
+
+    private UserMessage(UserMessageDTO userMessageDTO)
     {
         CreatedByUserId = userMessageDTO.SelectedUserId;
         Message = userMessageDTO.Message;

@@ -7,10 +7,12 @@ namespace WebChat.Controllers
     public class ChatController : Controller
     {
         private readonly ILogger<ChatController> _logger;
+        private readonly IRepository<UserMessage> messagesRepository;
 
-        public ChatController(ILogger<ChatController> logger)
+        public ChatController(ILogger<ChatController> logger, IRepository<UserMessage> MessagesRepository)
         {
             _logger = logger;
+            messagesRepository = MessagesRepository;
         }
 
         public IActionResult Index()
@@ -25,6 +27,10 @@ namespace WebChat.Controllers
 
             if(ModelState.IsValid)
             {
+                var message = UserMessage.Create(inputObj);
+
+                messagesRepository.Create(message);
+
 
                 return RedirectToAction(nameof(Index));
 
