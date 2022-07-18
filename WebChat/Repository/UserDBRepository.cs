@@ -8,6 +8,7 @@ public class UserDBRepository : IRepository<User>
 {
     private string connectionString;
     private string collectionName = "UsersCollection";
+    private static bool isIndexed = false;
 
     public UserDBRepository(string ConnectionString)
     {
@@ -17,8 +18,15 @@ public class UserDBRepository : IRepository<User>
     {
         using var db = new LiteDatabase(connectionString);
         var dbCollection = db.GetCollection<User>(collectionName);
-
         dbCollection.Insert(item);
+
+        if (!isIndexed)
+        {
+            dbCollection.EnsureIndex(l => l.Login, true);
+            dbCollection.EnsureIndex(n => n.UserName, true);
+            isIndexed = true;
+        }
+
         db.Commit();
     }
 

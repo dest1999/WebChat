@@ -27,11 +27,16 @@ namespace WebChat.Controllers
             {
                 User user = inputObj;
                 user.Id = 0; // БД сама ставит индекс
-                userRepository.Create(user);
-                return RedirectToAction(nameof(Index));
-
+                try
+                {
+                    userRepository.Create(user);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+                    
+                }
             }
-
             return BadRequest("Невозможно создать пользователя");
         }
 

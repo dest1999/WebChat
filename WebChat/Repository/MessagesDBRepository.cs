@@ -6,6 +6,7 @@ public class MessagesDBRepository : IRepository<UserMessage>
 {
     private string connectionString;
     private string collectionName = "MessagesCollection";
+    private static bool isIndexed = false;
 
     public MessagesDBRepository(string ConnectionString)
     {
@@ -17,6 +18,14 @@ public class MessagesDBRepository : IRepository<UserMessage>
         using var db = new LiteDatabase(connectionString);
         var dbCollection = db.GetCollection<UserMessage>(collectionName);
         dbCollection.Insert(item);
+
+        if (!isIndexed)
+        {
+            dbCollection.EnsureIndex(x => x.CreatedByUserId);
+            dbCollection.EnsureIndex(t => t.Created);
+            isIndexed = true;
+        }
+
         db.Commit();
     }
 
