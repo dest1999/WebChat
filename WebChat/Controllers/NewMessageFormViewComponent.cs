@@ -14,6 +14,7 @@ namespace WebChat.Controllers
 
         public IViewComponentResult Invoke()
         {
+            #region эту генерацию перенести в CoreLogic, инъекцию репозитория туда же
             var tmp = new SelectList(
                     userRepository.GetAll(),
                     nameof(WebChat.User.Id),
@@ -23,7 +24,7 @@ namespace WebChat.Controllers
             {
                 UsersListItems = tmp
             };
-            
+            #endregion
             return View("PartialNewMessage", messagesDTO);
         }
     }

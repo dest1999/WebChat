@@ -22,7 +22,7 @@ namespace WebChat.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateNewMessage(UserMessageDTO inputObj)
+        public void CreateNewMessage(UserMessageDTO inputObj)
         {
 
             if(ModelState.IsValid)
@@ -31,12 +31,12 @@ namespace WebChat.Controllers
 
                 messagesRepository.Create(message);
 
-
-                return RedirectToAction(nameof(Index));
+                _logger.Log(LogLevel.Information, "message from UserId={userId}", message.CreatedByUserId);
+                //return RedirectToAction(nameof(Index));
 
             }
 
-            return BadRequest("wrong data");
+            //return BadRequest("wrong data");
         }
 
 

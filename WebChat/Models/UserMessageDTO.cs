@@ -15,7 +15,7 @@ public class UserMessageDTO
 
     public int SelectedUserId { get; set; }
 
-    [Required(AllowEmptyStrings = false, ErrorMessage = "Введите сообщение")]
+    [Required(AllowEmptyStrings = false)]
     [DisplayName("Сообщение")]
     public string Message { get; set; }
 }
