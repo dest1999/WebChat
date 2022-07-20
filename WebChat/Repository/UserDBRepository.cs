@@ -38,7 +38,10 @@ public class UserDBRepository : IRepository<User>
 
     public User Get(int id)
     {
-        throw new NotImplementedException();
+        using var db = new LiteDatabase(connectionString);
+        var dbCollection = db.GetCollection<User>(collectionName);
+        User user = dbCollection.FindById(id);
+        return user;
     }
 
     public IEnumerable<User> GetAll()

@@ -9,7 +9,7 @@ string connectionString = builder.Configuration.GetConnectionString("LiteDB");
 
 builder.Services.AddScoped<IRepository<User>> (usersDB => new UserDBRepository(connectionString));
 builder.Services.AddScoped<IRepository<UserMessage>>(messagesDB => new MessagesDBRepository(connectionString));
-
+builder.Services.AddScoped<ChatCore>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
