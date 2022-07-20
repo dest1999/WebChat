@@ -1,14 +1,21 @@
-﻿@{
+﻿@model IEnumerable<string>
+@{
     ViewData["Title"] = "Chat";
 }
-страница сгенерирована: @DateTime.Now;
+страница сгенерирована: @DateTime.Now (AJAX proof)
 <h1>Чат</h1>
 
 @await Component.InvokeAsync("NewMessageForm")
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-left">
+    <textarea disabled id="messages" cols="100" rows="15" >
+        @foreach (var item in Model)
+        {
+            @(item.ToString() + "\n" );
+            
+        }
+    </textarea>
+
 </div>
 
 @section Scripts {
