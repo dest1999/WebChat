@@ -2,19 +2,22 @@
 @{
     ViewData["Title"] = "Chat";
 }
-страница сгенерирована: @DateTime.Now (AJAX proof)
+
 <h1>Чат</h1>
 
 @await Component.InvokeAsync("NewMessageForm")
-
+<hr />
 <div class="text-left">
-    <textarea disabled id="messages" cols="100" rows="15" >
+
+<textarea disabled id="messages" cols="100" rows="15">
+    @if (Model is not null)
+    {
         @foreach (var item in Model)
         {
-            @(item.ToString() + "\n" );
-            
+            @item.ToString();
         }
-    </textarea>
+    }
+</textarea>
 
 </div>
 

@@ -10,6 +10,7 @@ string connectionString = builder.Configuration.GetConnectionString("LiteDB");
 builder.Services.AddScoped<IRepository<User>> (usersDB => new UserDBRepository(connectionString));
 builder.Services.AddScoped<IRepository<UserMessage>>(messagesDB => new MessagesDBRepository(connectionString));
 builder.Services.AddScoped<ChatCore>();
+builder.Services.AddSignalR();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,8 +24,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-//app.UseAuthorization();
-
+app.UseAuthorization();
+app.MapHub<MessageSpreader>("/messageSpreader");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Users}/{action=Index}/{id?}");

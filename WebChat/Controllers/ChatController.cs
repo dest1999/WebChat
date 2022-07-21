@@ -1,25 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using WebChat.Models;
 
 namespace WebChat.Controllers
 {
     public class ChatController : Controller
     {
         private readonly ILogger<ChatController> _logger;
-        private readonly IRepository<UserMessage> messagesRepository;
         private readonly ChatCore chatCore;
 
-        public ChatController(ILogger<ChatController> logger, IRepository<UserMessage> MessagesRepository, ChatCore ChatCore)
+        public ChatController(ILogger<ChatController> logger, ChatCore ChatCore)
         {
             _logger = logger;
-            messagesRepository = MessagesRepository;
             chatCore = ChatCore;
         }
 
         public IActionResult Index()
         {
-            var messages = chatCore.GetMessages();
+            var messages = chatCore.GetAllMessages();
             return View(messages);
         }
 
@@ -29,21 +25,9 @@ namespace WebChat.Controllers
         {
             if(ModelState.IsValid)
             {
-                var message = UserMessage.Create(inputObj);
-                messagesRepository.Create(message);
-                _logger.Log(LogLevel.Information, "message from UserId={userId}", message.CreatedByUserId);
+                chatCore.RecievedNewMessage(inputObj);
+                _logger.Log(LogLevel.Information, "recieved message from UserId={userId}", inputObj.SelectedUserId);
             }
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
