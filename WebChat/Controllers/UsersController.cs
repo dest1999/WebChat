@@ -6,10 +6,12 @@ namespace WebChat.Controllers
 {
     public class UsersController : Controller
     {
+        private readonly ILogger<UsersController> logger;
         private IRepository<User> userRepository;
 
-        public UsersController(IRepository<User> UserRepository)
+        public UsersController(ILogger<UsersController> Logger, IRepository<User> UserRepository)
         {
+            logger = Logger;
             userRepository = UserRepository;
         }
 
@@ -29,12 +31,13 @@ namespace WebChat.Controllers
                 user.Id = 0; // БД сама ставит индекс
                 try
                 {
-                    userRepository.Create(user);
+                    var userId = userRepository.Create(user);
+                    logger.Log(LogLevel.Information, "created new user, Id={}, Name={} ", userId, user.UserName);
                     return RedirectToAction(nameof(Index));
                 }
-                catch
+                catch(Exception ex)
                 {
-                    
+                    logger.Log(LogLevel.Error, ex, "Can't create user Name={} ", user.UserName);
                 }
             }
             return BadRequest("Невозможно создать пользователя");

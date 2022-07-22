@@ -4,7 +4,7 @@
 // Write your JavaScript code.
 "use strict";
 var ajaxSendMessageFunction = function () {
-    document.querySelector('textarea[id="userTextMessage"]').value = "";
+    document.getElementById("userTextMessage").value = "";
 };
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/messageSpreader").build();

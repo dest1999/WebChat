@@ -13,11 +13,11 @@ public class MessagesDBRepository : IRepository<UserMessage>
         connectionString = ConnectionString;
     }
 
-    public void Create(UserMessage item)
+    public int Create(UserMessage item)
     {
         using var db = new LiteDatabase(connectionString);
         var dbCollection = db.GetCollection<UserMessage>(collectionName);
-        dbCollection.Insert(item);
+        int id = dbCollection.Insert(item);
 
         if (!isIndexed)
         {
@@ -27,6 +27,7 @@ public class MessagesDBRepository : IRepository<UserMessage>
         }
 
         db.Commit();
+        return id;
     }
 
     public IEnumerable<UserMessage> GetAll()
