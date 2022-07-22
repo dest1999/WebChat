@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using System.Text;
 
 namespace WebChat;
@@ -49,6 +50,16 @@ public class ChatCore
     private void DistributeMessage(string message)
     {
         hubContext.Clients.All.SendAsync("ReceiveMessage", message);
+    }
+
+    public SelectList GetUsersListToChatView()
+    {
+        var outList = new SelectList(
+            userRepo.GetAll(),
+            nameof(User.Id),
+            nameof(User.UserName));
+
+        return outList;
     }
 
 }

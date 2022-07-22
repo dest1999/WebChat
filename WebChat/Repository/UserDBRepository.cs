@@ -14,11 +14,11 @@ public class UserDBRepository : IRepository<User>
     {
         connectionString = ConnectionString;
     }
-    public void Create(User item)
+    public int Create(User item)
     {
         using var db = new LiteDatabase(connectionString);
         var dbCollection = db.GetCollection<User>(collectionName);
-        dbCollection.Insert(item);
+        int id = dbCollection.Insert(item);
 
         if (!isIndexed)
         {
@@ -28,6 +28,7 @@ public class UserDBRepository : IRepository<User>
         }
 
         db.Commit();
+        return id;
     }
 
     public void Delete(int id)

@@ -1,30 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebChat.Controllers
 {
     public class NewMessageFormViewComponent : ViewComponent
     {
-        private readonly IRepository<User> userRepository;
+        private readonly ChatCore chatCore;
 
-        public NewMessageFormViewComponent(IRepository<User> UserRepository)
+        public NewMessageFormViewComponent(ChatCore ChatCore )
         {
-            userRepository = UserRepository;
+            chatCore = ChatCore;
         }
 
         public IViewComponentResult Invoke()
         {
-            #region эту генерацию перенести в CoreLogic, инъекцию репозитория туда же
-            var tmp = new SelectList(
-                    userRepository.GetAll(),
-                    nameof(WebChat.User.Id),
-                    nameof(WebChat.User.UserName));
-
             var messagesDTO = new UserMessageDTO()
             {
-                UsersListItems = tmp
+                UsersListItems = chatCore.GetUsersListToChatView()
             };
-            #endregion
+
             return View("PartialNewMessage", messagesDTO);
         }
     }

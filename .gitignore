@@ -364,3 +364,4 @@ FodyWeavers.xsd
 *.db
 *.lnk
 /WebChat/libman.json
+/WebChat/.config/dotnet-tools.json
