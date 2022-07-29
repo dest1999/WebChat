@@ -23,12 +23,10 @@ namespace WebChat.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(User inputObj)
+        public IActionResult Create(User user)
         {
             if (ModelState.IsValid)
             {
-                User user = inputObj;
-                user.Id = 0; // БД сама ставит индекс
                 try
                 {
                     var userId = userRepository.Create(user);

@@ -13,6 +13,7 @@ public class EFUserRepository : IRepository<User>
 
     public int Create(User item)
     {
+        item.Id = 0;
         var db = dataContext;
         db.Users.Add(item);
         db.SaveChanges();
