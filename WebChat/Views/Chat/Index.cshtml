@@ -1,0 +1,26 @@
+﻿@model IEnumerable<string>
+@{
+    ViewData["Title"] = "Chat";
+}
+
+<h1>Чат</h1>
+
+@await Component.InvokeAsync("NewMessageForm")
+<hr />
+<div class="text-left">
+
+<textarea disabled class="form-control" id="messages" rows="15">
+    @if (Model is not null)
+    {
+        @foreach (var item in Model)
+        {
+            @item.ToString();
+        }
+    }
+</textarea>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

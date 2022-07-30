@@ -1,0 +1,48 @@
+﻿@model IEnumerable<User>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h1>Пользователи</h1>
+
+@await Component.InvokeAsync("UserCreateForm")
+
+<br />
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+               @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Login)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model ) {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Login)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

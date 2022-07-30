@@ -1,0 +1,31 @@
+﻿@model UserMessageDTO
+
+<hr />
+<h3>Сообщение пользователя</h3>
+<div class="row">
+    <div class="col-md-4">
+
+        <form asp-antiforgery="true" asp-action="CreateNewMessage" data-ajax="true" data-ajax-method="post" data-ajax-success="ajaxSendMessageFunction" >
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="UsersListItems" class="control-label"></label>
+                <select asp-for="SelectedUserId" asp-items="Model.UsersListItems" class="form-control"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Message" class="control-label"></label>
+                <textarea asp-for="Message" id="userTextMessage" class="form-control" maxlength="120" ></textarea>
+                
+            </div>
+
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Отправить"  />
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
