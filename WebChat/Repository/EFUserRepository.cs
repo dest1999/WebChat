@@ -18,8 +18,8 @@ public class EFUserRepository : IRepository<User>
         db.Users.Add(item);
         db.SaveChanges();
         int lastIndex = db.Users
-            .OrderBy(u => u.Id)
-            .Last().Id;
+            .First(u => u.UserName == item.UserName && u.Login == item.Login)
+            .Id;
 
         return lastIndex;
     }
