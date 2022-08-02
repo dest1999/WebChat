@@ -365,3 +365,5 @@ FodyWeavers.xsd
 *.lnk
 /WebChat/libman.json
 /WebChat/.config/dotnet-tools.json
+/WebChat/SQLite.db-shm
+/WebChat/SQLite.db-wal

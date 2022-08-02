@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebChat;
 
+[Index(nameof(Login), IsUnique = true)]
+[Index(nameof(UserName), IsUnique = true)]
 public class User
 {
     [HiddenInput(DisplayValue = false)]
